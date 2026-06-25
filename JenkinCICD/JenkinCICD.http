@@ -1,0 +1,6 @@
+@JenkinCICD_HostAddress = http://localhost:5185
+
+GET {{JenkinCICD_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
