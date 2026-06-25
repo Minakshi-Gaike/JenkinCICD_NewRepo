@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    environment {
+        DOTNET_ROOT = 'C:\\Program Files\\dotnet'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Minakshi-Gaike/JenkinCICD_NewRepo.git'
+            }
+        }
+
+        stage('Restore') {
+            steps {
+                bat 'dotnet restore'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'dotnet build --configuration Release'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'dotnet test'
+            }
+        }
+
+        stage('Publish') {
+            steps {
+                bat 'dotnet publish -c Release -o publish'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build Successful!'
+        }
+        failure {
+            echo 'Build Failed!'
+        }
+    }
+}
